@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Box, CssBaseline } from "@mui/material";
+import NavBar from "./components/Layout/NavBar/NavBar";
+import SideBar from "./components/Layout/SideBar/SideBar";
+import MainContent from "./components/Layout/MainContent/MainContent";
 
-function App() {
+const App: React.FC = () => {
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <NavBar open={open} toggleDrawer={toggleDrawer} />
+      <SideBar open={open} toggleDrawer={toggleDrawer} />
+      <MainContent />
+    </Box>
   );
-}
+};
 
 export default App;
