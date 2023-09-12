@@ -1,7 +1,12 @@
 import React from "react";
+import CafeTable from "./CafeTable/CafeTable";
 
 const Cafe: React.FC = () => {
-  return <div>Cafe</div>;
+  return (
+    <React.Fragment>
+      <CafeTable />
+    </React.Fragment>
+  );
 };
 
 export default Cafe;

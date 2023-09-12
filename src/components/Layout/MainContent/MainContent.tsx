@@ -4,25 +4,8 @@ import { Box } from "@mui/material";
 import Dashboard from "../../Dashboard/Dashboard";
 import Cafe from "../../Cafe/Cafe";
 import Employee from "../../Employee/Employee";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Dashboard />,
-    // errorElement: <ErrorPage />,
-  },
-  {
-    path: "/employee",
-    element: <Employee />,
-    // errorElement: <ErrorPage />,
-  },
-  {
-    path: "/cafe",
-    element: <Cafe />,
-    // errorElement: <ErrorPage />,
-  },
-]);
+import { Route, Routes } from "react-router-dom";
+import DynamicBreadCrumbs from "../DynamicBreadCrumbs/DynamicBreadCrumbs";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -37,7 +20,12 @@ const MainContent: React.FC = () => {
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
-      <RouterProvider router={router} />
+      <DynamicBreadCrumbs />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/employee" element={<Employee />} />
+        <Route path="/cafe" element={<Cafe />} />
+      </Routes>
     </Box>
   );
 };

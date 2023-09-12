@@ -13,6 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { drawerWidth } from "../../../constants/constant";
+import { useNavigate } from "react-router-dom";
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -66,14 +67,24 @@ interface SideBarProps {
   open: boolean;
 }
 
-const navItems: Array<string> = ["Home", "Cafe", "Employee"];
+interface NavItem {
+  name: string;
+  path: string;
+}
+
+const navItems: Array<NavItem> = [
+  { name: "Dashboard", path: "/" },
+  { name: "Cafe", path: "/cafe" },
+  { name: "Employee", path: "/employee" },
+];
 
 const SideBar: React.FC<SideBarProps> = (sideBarProps: SideBarProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const { toggleDrawer, open } = sideBarProps;
 
-  const handleClickItem = (text: string): void => {
-    console.log(text);
+  const handleClickItem = (nav: NavItem): void => {
+    navigate(nav.path);
   };
 
   return (
@@ -89,12 +100,12 @@ const SideBar: React.FC<SideBarProps> = (sideBarProps: SideBarProps) => {
       </DrawerHeader>
       <Divider />
       <List>
-        {navItems.map((text, index) => (
+        {navItems.map((item, index) => (
           <ListItem
-            key={text}
+            key={index}
             disablePadding
             sx={{ display: "block" }}
-            onClick={() => handleClickItem(text)}
+            onClick={() => handleClickItem(item)}
           >
             <ListItemButton
               sx={{
@@ -112,7 +123,10 @@ const SideBar: React.FC<SideBarProps> = (sideBarProps: SideBarProps) => {
               >
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primary={item.name}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
