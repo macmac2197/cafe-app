@@ -13,16 +13,16 @@ const DynamicBreadCrumbs: React.FC = () => {
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb" sx={{ marginBottom: 4 }}>
         <Link underline="hover" color="inherit" href="/">
-          MUI
+          Dashboard
         </Link>
         <Link
           underline="hover"
           color="inherit"
           href="/material-ui/getting-started/installation/"
         >
-          Core
+          Cafe
         </Link>
-        <Typography color="text.primary">Breadcrumbs</Typography>
+        <Typography color="text.primary">Cafe List</Typography>
       </Breadcrumbs>
     </div>
   );

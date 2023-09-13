@@ -1,13 +1,19 @@
-import { applyMiddleware, compose } from "redux";
-import { legacy_createStore as createStore } from "redux";
-import thunk from "redux-thunk";
-import reducers from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import cafeReducer from "./slices/cafeSlice";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { api } from "../rtk-query/cafeApi";
 
-export const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(thunk),
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+export const store = configureStore({
+  reducer: {
+    cafes: cafeReducer,
+    [api.reducerPath]: api.reducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(api.middleware);
+  },
+});
+
+export const useAppDispatch: () => typeof store.dispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<
+  ReturnType<typeof store.getState>
+> = useSelector;

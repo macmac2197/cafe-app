@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -10,8 +10,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ShopIcon from "@mui/icons-material/Museum";
+import EmployeeIcon from "@mui/icons-material/SupervisedUserCircle";
 import { drawerWidth } from "../../../constants/constant";
 import { useNavigate } from "react-router-dom";
 
@@ -70,12 +71,13 @@ interface SideBarProps {
 interface NavItem {
   name: string;
   path: string;
+  icon: ReactElement;
 }
 
 const navItems: Array<NavItem> = [
-  { name: "Dashboard", path: "/" },
-  { name: "Cafe", path: "/cafe" },
-  { name: "Employee", path: "/employee" },
+  { name: "Dashboard", path: "/", icon: <DashboardIcon /> },
+  { name: "Cafe", path: "/cafe", icon: <ShopIcon /> },
+  { name: "Employee", path: "/employee", icon: <EmployeeIcon /> },
 ];
 
 const SideBar: React.FC<SideBarProps> = (sideBarProps: SideBarProps) => {
@@ -121,7 +123,7 @@ const SideBar: React.FC<SideBarProps> = (sideBarProps: SideBarProps) => {
                   justifyContent: "center",
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {item.icon}
               </ListItemIcon>
               <ListItemText
                 primary={item.name}
